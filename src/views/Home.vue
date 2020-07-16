@@ -1,32 +1,29 @@
 <template>
 	<div class="container">
+		<Loader v-if="loader" />
 		<Top />
 		<section>
-			<Picture :medias="medias" />
+			<Pictures />
 		</section>
 	</div>
 </template>
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
-const { mapState, mapActions } = createNamespacedHelpers('test');
-import Picture from '@/components/Picture.vue';
+const { mapState } = createNamespacedHelpers('test');
+import Pictures from '@/components/Pictures.vue';
 import Top from '@/components/Top.vue';
+import Loader from '@/components/Loader';
 
 export default {
 	name: 'Home',
 	computed: {
-		...mapState(['medias']),
-	},
-	methods: {
-		...mapActions(['getMedias']),
-	},
-	created() {
-		this.getMedias();
+		...mapState(['loader']),
 	},
 	components: {
-		Picture,
+		Pictures,
 		Top,
+		Loader,
 	},
 };
 </script>
