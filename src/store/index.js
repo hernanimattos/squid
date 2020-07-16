@@ -16,13 +16,13 @@ export default new Vuex.Store({
         count: ''
       },
       mutations: {
-        getUsers(state, payload) {
+        getMedias(state, payload) {
           state.media = payload;
 
         }
       },
       actions: {
-        async getUsers({
+        async getMedias({
           commit
         }) {
 
