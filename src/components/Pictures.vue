@@ -5,7 +5,7 @@
 			v-for="media in medias"
 			:key="media.metadados.idFacebook"
 		>
-			<img :src="media.imagens.thumbnail.url" alt="MDN" />
+			<img :src="media.imagens.thumbnail.url" :alt="media.usuario.username" />
 			<div class="overlay">
 				<div class="overlay-user--info">
 					<p>
@@ -40,17 +40,30 @@
 				</div>
 			</div>
 		</picture>
+		<div class="btn" @click="morePosts">
+			<font-awesome-icon icon="arrow-circle-right" />
+		</div>
 	</section>
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
+const { mapState, mapActions, mapGetters } = createNamespacedHelpers('test');
+
 export default {
-	name: 'Picture',
-	props: {
-		medias: {
-			type: Array,
-			required: true,
+	name: 'Pictures',
+	computed: {
+		...mapState(['medias', 'qtd']),
+		...mapGetters(['parseNextUrl', 'addQtd']),
+	},
+	methods: {
+		...mapActions(['getMedias', 'getNextPage']),
+		morePosts() {
+			this.getNextPage({ url: this.parseNextUrl, qtd: this.addQtd });
 		},
+	},
+	created() {
+		this.getMedias({ qtd: this.qtd });
 	},
 };
 </script>
@@ -59,7 +72,6 @@ export default {
 .wrapper-picture {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-	margin-bottom: 1rem;
 	grid-row-gap: 1rem;
 	grid-column-gap: 1rem;
 	padding: 1rem;
@@ -70,6 +82,7 @@ export default {
 	box-sizing: border-box;
 	overflow: hidden;
 	cursor: pointer;
+	height: 100%;
 }
 
 .picture img {
@@ -90,17 +103,21 @@ export default {
 	background-color: rgba(0, 0, 0, 0.6);
 	position: absolute;
 	z-index: 1;
-	top: -200px;
 	left: 0;
 	width: 100%;
 	color: #fff;
+	top: -200px;
 }
 
 .overlay-user--info {
-	margin-top: 25%;
 	padding: 1rem;
-	text-align: center;
 	font-size: 0.8rem;
+	position: inherit;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: max-content;
+	text-align: center;
 }
 
 .overlay-user--data {
@@ -124,5 +141,18 @@ export default {
 		width: 100%;
 		height: 100%;
 	}
+}
+
+.btn {
+	font-size: 10rem;
+	color: #2a66a59c;
+	cursor: pointer;
+	transition: 0.5s;
+	margin-top: 2rem;
+}
+
+.btn:hover {
+	color: #2a66a5f7;
+	transition: 0.5s;
 }
 </style>
