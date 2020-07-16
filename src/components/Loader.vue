@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style scoped>
-loader {
+.loader {
 	position: fixed;
 	width: 100%;
 	height: 100%;
