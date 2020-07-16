@@ -1,6 +1,8 @@
 import axios from 'axios';
-import config from "./config";
+import qs from 'qs';
+import config from './config';
 
+console.log(config)
 class HTTP {
   constructor() {
     this.axios = null;
@@ -10,17 +12,22 @@ class HTTP {
 
   configuration() {
     this.axios = axios.create({
-      ...this.config
-    })
+      ...this.config,
+    });
   }
 
   async get(url, params) {
 
-    return await this.axios.get(url, {
-      ...params
-    })
 
+    const urlReq = !params ? url : this.urlBuild(url, params);
+
+    return await this.axios.get(urlReq);
+  }
+
+  urlBuild(url, params) {
+
+    return `${url}?${qs.stringify(params)}`
   }
 }
 
-export default new HTTP()
+export default new HTTP();
