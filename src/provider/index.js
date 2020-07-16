@@ -17,8 +17,6 @@ class HTTP {
   }
 
   async get(url, params) {
-
-
     const urlReq = !params ? url : this.urlBuild(url, params);
 
     return await this.axios.get(urlReq);

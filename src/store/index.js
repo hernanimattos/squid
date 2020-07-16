@@ -77,12 +77,12 @@ export default new Vuex.Store({
               }
             } = await HTTP.get(`/test?count=${qtd}`, {
               next_url: url
-            })
+            });
+
             commit('setQtd', qtd)
             commit('getMedias', medias)
             commit('getNextUrl', next_url)
             commit('loaderStatus', false)
-
 
             return Promise.resolve(medias)
           } catch (error) {
