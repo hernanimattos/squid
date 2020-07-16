@@ -3,8 +3,9 @@ import config from "./config";
 
 class HTTP {
   constructor() {
-    this.axios = axios;
-    this.config = config
+    this.axios = null;
+    this.config = config;
+    this.configuration();
   }
 
   configuration() {
@@ -15,7 +16,7 @@ class HTTP {
 
   async get(url, params) {
 
-    this.axios.get(url, {
+    return await this.axios.get(url, {
       ...params
     })
 
