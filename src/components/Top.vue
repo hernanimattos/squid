@@ -1,6 +1,8 @@
 <template>
 	<header>
-		Header
+		<div class="logo">
+			<img src="@/assets/logo.png" alt="" />
+		</div>
 	</header>
 </template>
 
@@ -10,4 +12,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.logo {
+	text-align: center;
+	padding: 1rem;
+}
+.logo img {
+	max-width: 300px;
+}
+</style>
